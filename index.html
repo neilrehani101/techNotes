@@ -47,6 +47,7 @@
 
     <div class="container my-3">
         <h1>Welcome To TechNotes</h1>
+
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Add a note</h5>
@@ -59,6 +60,16 @@
         <hr>
         <h1>Your Notes</h1>
         <hr>
+        <div id="alert">
+            <div id="added" class="alert alert-success" role="alert" style="display: block;">
+                Added note successfully
+            </div>
+        </div>
+        <div id="alert">
+            <div id="deleted" class="alert alert-success" role="alert" style="display: block;">
+                Deleted note successfully
+            </div>
+        </div>
         <div id="notes" class="row container-fluid">
         </div>
     </div>
@@ -78,6 +89,10 @@
 
         // If user adds a note, add it to the localStorage
         let addBtn = document.getElementById("addBtn");
+        let addedAlert = document.getElementById("added");
+        let da = document.getElementById("deleted");
+        addedAlert.style.display = "none";
+        da.style.display = "none";
         addBtn.addEventListener("click", function(e) {
         let addTxt = document.getElementById("addTxt");
         let notes = localStorage.getItem("notes");
@@ -91,6 +106,10 @@
         addTxt.value = "";
         // console.log(notesObj);
         showNotes();
+        addedAlert.style.display = "block"
+        setTimeout(() => {
+            addedAlert.style.display = "none"
+        }, 3000);
         });
 
         // Function to show elements from localStorage
@@ -134,6 +153,10 @@
         notesObj.splice(index, 1);
         localStorage.setItem("notes", JSON.stringify(notesObj));
         showNotes();
+        da.style.display = "block";
+        setTimeout(() => {
+            da.style.display = "none"
+        }, 3000);
         }
 
 
