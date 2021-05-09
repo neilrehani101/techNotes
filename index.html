@@ -75,6 +75,15 @@
             </div>
             
         </div>
+        <div class="alert alert-danger" id="title-e"role="alert">
+            Please fill in the title
+        </div>
+        <div class="alert alert-danger" id="note-e" role="alert">
+            Please fill in the note
+        </div>
+        <div class="alert alert-danger" id="e-all"role="alert">
+            Please fill in the fields
+        </div>
         <div id="notes" class="row container-fluid">
         </div>
         </div>
@@ -100,33 +109,58 @@
         let addBtn = document.getElementById("addBtn");
         let addedAlert = document.getElementById("added");
         let da = document.getElementById("deleted");
+        let tError = document.getElementById("title-e");
+        let nError = document.getElementById("note-e");
+        let allError = document.getElementById("e-all");
         addedAlert.style.display = "none";
         da.style.display = "none";
+        tError.style.display = "none";
+        nError.style.display = "none";
+        allError.style.display = "none";
         addBtn.addEventListener("click", function(e) {
-        let toastElement = new bootstrap.Toast(da, option);
         let addTxt = document.getElementById("addTxt");
         let notes = localStorage.getItem("notes");
         let addTile = document.getElementById("addTitle")
-        if (notes == null) {
-        notesObj = [];
-        } else {
-        notesObj = JSON.parse(notes);
+        if (addTile.value == "" && addTxt.value == "") {
+        allError.style.display = "block";
+        setTimeout(() => {
+        allError.style.display = "none"
+        }, 3000);
         }
-        myObj = {
+        else if (addTile.value == "") {
+            tError.style.display = "block";
+            setTimeout(() => {
+            tError.style.display = "none"
+            }, 3000);
+        }
+        else if (addTxt.value == "") {
+            nError.style.display = "block";
+            setTimeout(() => {
+            nError.style.display = "none"
+            }, 3000);
+        }
+        else {
+            if (notes == null) {
+            notesObj = [];
+            } else {
+            notesObj = JSON.parse(notes);
+            }
+            myObj = {
             title: addTile.value,
             text: addTxt.value
-        }
-        notesObj.push(myObj);
-        localStorage.setItem("notes", JSON.stringify(notesObj));
-        addTxt.value = "";
-        addTitle.value = "";
-        // console.log(notesObj);
-        showNotes();
-        // toastElement.show();
-        addedAlert.style.display = "block"
-        setTimeout(() => {
+            }
+            notesObj.push(myObj);
+            localStorage.setItem("notes", JSON.stringify(notesObj));
+            addTxt.value = "";
+            addTitle.value = "";
+            // console.log(notesObj);
+            showNotes();
+            // toastElement.show();
+            addedAlert.style.display = "block"
+            setTimeout(() => {
             addedAlert.style.display = "none"
-        }, 3000);
+            }, 3000);
+        }
         });
 
         // Function to show elements from localStorage
