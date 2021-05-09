@@ -50,6 +50,10 @@
 
         <div class="card">
             <div class="card-body">
+                <h5 class="card-title">Add a title</h5>
+                <div class="form-group">
+                    <input class="form-control" id="addTitle" rows="3"></input>
+                </div>
                 <h5 class="card-title">Add a note</h5>
                 <div class="form-group">
                     <textarea class="form-control" id="addTxt" rows="3"></textarea>
@@ -67,10 +71,12 @@
         </div>
         <div id="alert">
             <div id="deleted" class="alert alert-success" role="alert" style="display: block;">
-                Deleted note successfully
+                Deleted note successfully  
             </div>
+            
         </div>
         <div id="notes" class="row container-fluid">
+        </div>
         </div>
     </div>
 
@@ -86,7 +92,10 @@
     <script>
         console.log("Welcome to notes app. This is app.js");
         showNotes();
-
+        var option = {
+            animation: true,
+            delay: 2000
+        }
         // If user adds a note, add it to the localStorage
         let addBtn = document.getElementById("addBtn");
         let addedAlert = document.getElementById("added");
@@ -94,18 +103,26 @@
         addedAlert.style.display = "none";
         da.style.display = "none";
         addBtn.addEventListener("click", function(e) {
+        let toastElement = new bootstrap.Toast(da, option);
         let addTxt = document.getElementById("addTxt");
         let notes = localStorage.getItem("notes");
+        let addTile = document.getElementById("addTitle")
         if (notes == null) {
         notesObj = [];
         } else {
         notesObj = JSON.parse(notes);
         }
-        notesObj.push(addTxt.value);
+        myObj = {
+            title: addTile.value,
+            text: addTxt.value
+        }
+        notesObj.push(myObj);
         localStorage.setItem("notes", JSON.stringify(notesObj));
         addTxt.value = "";
+        addTitle.value = "";
         // console.log(notesObj);
         showNotes();
+        // toastElement.show();
         addedAlert.style.display = "block"
         setTimeout(() => {
             addedAlert.style.display = "none"
@@ -125,8 +142,8 @@
         html += `
         <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">Note ${index + 1}</h5>
-                <p class="card-text"> ${element}</p>
+                <h5 class="card-title">${element.title}</h5>
+                <p class="card-text"> ${element.text}</p>
                 <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
             </div>
         </div>`;
