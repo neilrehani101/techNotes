@@ -1,0 +1,22 @@
+.navbar {
+    z-index: -100px;
+}
+#added {
+    margin: 10px;
+}
+
+#deleted {
+    margin: 10px;
+}
+
+#title-e {
+    margin: 10px;
+    
+}
+
+#note-e{
+    margin: 10px;
+}
+
+#e-all {
+    margin: 10px;}
