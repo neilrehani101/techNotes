@@ -9,20 +9,16 @@
     <link rel="icon" href="icon.png"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="app.css">
-    <style>
-        .alert {
-        position: sticky;
-        top: 3.5rem;
-        z-index: 15;
-        }
-    </style>
+    <!-- <link rel="stylesheet" href="app.css"> -->
 </head>
 
 <body>
 
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">TechNotes</a>
+    <nav class="navbar sticky-top fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="icon.png" alt="" width="25" height="24"
+                class="d-inline-block align-text-top">
+            TechNotes</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,34 +40,13 @@
                 </li> -->
 
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search"
-                    aria-label="Search">
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="search" class="btn btn-outline-success" type="submit" style="margin-left: 10px;">Search</button>
             </form>
         </div>
     </nav>
 
-        <div id="alert">
-            <div id="added" class="alert alert-success" role="alert" style="display: block; margin:0px;">
-                Added note successfully
-            </div>
-        </div>
-        <div id="alert">
-            <div id="deleted" class="alert alert-success" role="alert" style="display: block;margin:0px;">
-                Deleted note successfully
-            </div>
-
-        </div>
-        <div class="alert alert-danger" id="title-e" role="alert" style="margin:0px;">
-            Please fill in the title
-        </div>
-        <div class="alert alert-danger" id="note-e" role="alert" style="margin:0px;">
-            Please fill in the note
-        </div>
-        <div class="alert alert-danger" id="e-all" role="alert" style="margin:0px;">
-            Please fill in the fields
-        </div>
     <div class="container my-3">
         <h1>Welcome To TechNotes</h1>
 
@@ -87,6 +62,27 @@
                 </div>
                 <button class="btn btn-primary" id="addBtn">Add Note</button>
             </div>
+        </div>
+        <hr>
+                <div id="alert">
+            <div id="added" class="alert alert-success" role="alert">
+                Added note successfully
+            </div>
+        </div>
+        <div id="alert">
+            <div id="deleted" class="alert alert-success" role="alert">
+                Deleted note successfully
+            </div>
+
+        </div>
+        <div class="alert alert-danger" id="title-e" role="alert">
+            Please fill in the title
+        </div>
+        <div class="alert alert-danger" id="note-e" role="alert">
+            Please fill in the note
+        </div>
+        <div class="alert alert-danger" id="e-all" role="alert">
+            Please fill in the fields
         </div>
         <hr>
         <h1>Your Notes</h1>
@@ -106,13 +102,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script>
-        console.log("Welcome to notes app. This is app.js");
-        showNotes();
-        var option = {
-            animation: true,
-            delay: 2000
-        }
-        // If user adds a note, add it to the localStorage
         let addBtn = document.getElementById("addBtn");
         let addedAlert = document.getElementById("added");
         let da = document.getElementById("deleted");
@@ -124,6 +113,9 @@
         tError.style.display = "none";
         nError.style.display = "none";
         allError.style.display = "none";
+        console.log("Welcome to notes app. This is app.js");
+        showNotes();
+        // If user adds a note, add it to the localStorage
         addBtn.addEventListener("click", function(e) {
         let addTxt = document.getElementById("addTxt");
         let notes = localStorage.getItem("notes");
@@ -218,8 +210,8 @@
         }
 
 
-        let search = document.getElementById('searchTxt');
-        search.addEventListener("input", function(){
+        let search = document.getElementById('search');
+        search.addEventListener("click", function(){
 
         let inputVal = search.value.toLowerCase();
         // console.log('Input event fired!', inputVal);
